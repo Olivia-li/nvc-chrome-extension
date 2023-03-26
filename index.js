@@ -19,7 +19,18 @@ function nvcify(text) {
     .then((response) => response.json())
     .then((data) => {
       // clearInputField(document.querySelectorAll('div[aria-label="Message"]')[0])
+      
+      // THIS IS THE CODE FOR THE INPUT FIELD
       setText(document.querySelectorAll('div[aria-label="Message"]')[0], data[0].translation)
+      
+      // CODE FOR THE POPUP
+      const container = document.createElement("div")
+      container.id = "nvcify-container"
+      container.innerHTML = data[0].translation
+      container.style =
+        "position: absolute; top: 0; left: 0; background-color: white; padding: 20px; border: 1px solid black; z-index: 9999;"
+      document.body.appendChild(container)
+      
       console.log(data[0].translation)
     })
     .catch((error) => console.error(error))
