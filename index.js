@@ -17,6 +17,22 @@ document.addEventListener("keydown", function (e) {
 function nvcify(text) {
   fetch(`https://nvc-api.herokuapp.com/translate?text=${text}`)
     .then((response) => response.json())
-    .then((data) => console.log(data))
+    .then((data) => {
+      // clearInputField(document.querySelectorAll('div[aria-label="Message"]')[0])
+      setText(document.querySelectorAll('div[aria-label="Message"]')[0], data[0].translation)
+      console.log(data[0].translation)
+    })
     .catch((error) => console.error(error))
+}
+
+var setText = function (el, text) {
+  navigator.clipboard.writeText(text)
+  el.focus()
+  document.execCommand("paste")
+}
+
+function clearInputField(el) {
+  el.focus()
+  document.execCommand("selectAll")
+  document.execCommand("delete")
 }
